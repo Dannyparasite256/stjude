@@ -1,0 +1,203 @@
+<!-- gallery/templates/gallery/gallery.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ST JUDE GENERAL HARDWARE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .gallery-item {
+            position: relative;
+            width: 300px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            background-color: #fff;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .gallery-item h2, .gallery-item p {
+            margin: 10px;
+            color: #333;
+        }
+        .gallery-item h2 {
+            font-size: 18px;
+        }
+        .gallery-item p {
+            font-size: 14px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+        }
+        .modal-content h2 {
+            font-size: 24px;
+            color: #333;
+        }
+        .modal-content p {
+            font-size: 16px;
+            color: #555;
+        }
+        .close, .cancel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #333;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        .cancel {
+            right: 50px;
+            font-size: 20px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        footer p {
+            margin: 20px 0;
+        }
+        footer img {
+            width: 30px;
+            margin: 0 10px;
+        }
+
+        a {
+            color: rgb(252, 248, 248);
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>St Jude General Hardware</h1>
+    </header>
+    <main>
+        <p>Welcome to St Jude General Hardware, your one-stop destination for all your hardware needs!</p>
+        <h2>Why Choose Us?</h2>
+        <ul>
+            <li>We offer a wide range of high-quality hardware products, from tools to building materials.</li>
+            <li>Our knowledgeable staff are always ready to assist you and provide expert advice.</li>
+            <li>We prioritize customer satisfaction and strive to provide exceptional service.</li>
+            <li>Convenient location and flexible hours to suit your busy schedule.</li>
+            <li>Competitive prices and special offers to help you save money.</li>
+            <li>We value community involvement and support local initiatives.</li>
+        </ul>
+        <h2>Our Mission</h2>
+        <p>At St Jude General Hardware, our mission is to provide our customers with the best hardware products and services, delivered with integrity, professionalism, and a commitment to excellence. We aim to build lasting relationships with our customers and contribute positively to the communities we serve.</p>
+    </main>
+    <h1>PRODUCTS WE HAVE AT ST JUDE</h1>
+    <div class="gallery">
+        {% for photo in photos %}
+            <div class="gallery-item" onclick="openModal('{{ photo.image.url }}', '{{ photo.title }}', '{{ photo.description }}', '{{ photo.uploaded_at }}')">
+                <img src="{{ photo.image.url }}" alt="{{ photo.title }}">
+                <h2>{{ photo.title }}</h2>
+                <p>{{ photo.description }}</p>
+                <p>Uploaded at: {{ photo.uploaded_at }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="cancel" onclick="closeModal()">Cancel</span>
+        <div class="modal-content">
+            <img id="modalImg" src="" alt="">
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+            <p id="modalUploadedAt"></p>
+        </div>
+    </div>
+    <footer>
+        <h3>St Jude General Hardware</h3>
+        <p>Find us on social media:</p>
+        <a href="https://facebook.com/kakeetodaniel"><i class="fab fa-facebook"></i></a>
+        <a href="https://x.com/Dannyparasite"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/kevinheart4realfuns/"><i class="fab fa-instagram"></i></a>
+        <a href="wa.me/256775937667"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.pinterest.com/asumanikimbowa/"><i class="fab fa-pintrest"></i></a>
+        <a href="http://www.youtube.com/@KimbowaAsumani"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.tiktok.com/@prankton12?is_from_webapp=1&sender_device=pc"><i class="fab fa-tiktok"></i></a>
+        <a href="https://discord.gg/JAkbzCfS"><i class="fab fa-discord"></i></a>
+       
+        <p>Contact us at: business@stjudehardware.com</p>
+    </footer>
+
+    <script>
+        function openModal(imageSrc, title, description, uploadedAt) {
+            document.getElementById("myModal").style.display = "flex";
+            document.getElementById("modalImg").src = imageSrc;
+            document.getElementById("modalTitle").innerText = title;
+            document.getElementById("modalDescription").innerText = description;
+            document.getElementById("modalUploadedAt").innerText = 'Uploaded at: ' + uploadedAt;
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("myModal")) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
